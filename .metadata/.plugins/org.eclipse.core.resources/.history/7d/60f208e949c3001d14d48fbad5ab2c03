@@ -1,0 +1,225 @@
+package pub_adventure;
+
+import java.util.HashMap;
+
+import pub_adventure.AdventurePublisher;
+
+public class AdventurePubImpl implements AdventurePublisher {
+	
+	// HashMaps use to store the adventure locations
+		HashMap<String, Double> canoeing = new HashMap<String, Double>();
+		HashMap<String, Double> archery = new HashMap<String, Double>();
+		HashMap<String, Double> teamBuildingAdventure = new HashMap<String, Double>();
+		HashMap<String, Double> mountainBiking = new HashMap<String, Double>();
+
+		// constructor to save locations with pricing based on their location.
+		
+
+		public AdventurePubImpl() {
+			canoeing.put("Kayaking Adventur at Piliyandala", 8000.00);
+			canoeing.put("Kayak Journey at Tangalle", 9000.00);
+			canoeing.put("Lagoon Canoeing at Galle", 4000.00);
+			canoeing.put("River Safari & Canoeing Excursion Mahamodara", 5000.00);
+
+			archery.put("Ella Archery for Travelers)", 4000.00);
+			archery.put("Che Adventure Park", 7000.00);
+			archery.put("Archery Tag LK", 3000.00);
+			archery.put("Maitland archery for Travelers", 5000.00);
+
+			teamBuildingAdventure.put("Unawatuna adventure camp", 8000.00);
+			teamBuildingAdventure.put("Thangalle adventure camp", 7000.00);
+			teamBuildingAdventure.put("Kithulgala adventure camp", 5000.00);
+
+			mountainBiking.put("MTB.LK for Travelers at Battaramulla ", 8000.00);
+			mountainBiking.put("Samson Bikes for Travelers at Nuwara Eliya", 7000.00);
+			mountainBiking.put("Nuwara Eliya Mountain Bike Station at Nuwara Eliya", 3000.00);
+			mountainBiking.put("Mountain and Road bike tour & Bikes and Apartment rent at Kaluthara", 4000.00);
+		}
+
+		// details of locations.
+
+		@Override
+		public void displayAdventurePlaces(int num) {
+			int ct;
+			switch (num) {
+			case 1:
+				ct = 1;
+				for (String nm01 : canoeing.keySet()) {
+					String key1 = nm01.toString();
+					String value1 = canoeing.get(nm01).toString();
+					System.out.println(ct + ". " + key1 + " :- LKR " + value1);
+					ct++;
+				}
+				;
+				break;
+			case 2:
+				ct = 1;
+				for (String nm02 : archery.keySet()) {
+					String key2 = nm02.toString();
+					String value2 = archery.get(nm02).toString();
+					System.out.println(ct + ". " + key2 + " :- LKR " + value2);
+					ct++;
+				}
+				;
+				break;
+
+			case 3:
+				ct = 1;
+				for (String nm03 : teamBuildingAdventure.keySet()) {
+					String key3 = nm03.toString();
+					String value3 = teamBuildingAdventure.get(nm03).toString();
+					System.out.println(ct + ". " + key3 + " :- LKR " + value3);
+					ct++;
+				}
+				;
+				break;
+
+			case 4:
+				ct = 1;
+				for (String nm04 : mountainBiking.keySet()) {
+					String key4 = nm04.toString();
+					String value4 = mountainBiking.get(nm04).toString();
+					System.out.println(ct + ". " + key4 + " :- LKR " + value4);
+					ct++;
+				}
+				;
+				break;
+			}
+
+		}
+
+		@Override
+		public double getPrice(int category, int place) {
+			// TODO Auto-generated method stub
+			double price = 0;
+			if (category == 1) {
+				switch (place) {
+				case 1:
+					price = canoeing.get("Kayaking Adventur at Piliyandala");
+					break;
+				case 2:
+					price = canoeing.get("Kayak Journey at Tangalle");
+					break;
+				case 3:
+					price = canoeing.get("Lagoon Canoeing at Galle");
+					break;
+				case 4:
+					price = canoeing.get("River Safari & Canoeing Excursion Mahamodara");
+					break;
+				}
+			} else if (category == 2) {
+				switch (place) {
+				case 1:
+					price = archery.get("Ella Archery for Travelers");
+					break;
+				case 2:
+					price = archery.get("Che Adventure Park");
+					break;
+				case 3:
+					price = archery.get("Archery Tag LK)");
+					break;
+				case 4:
+					price = archery.get("Maitland archery for Travelers");
+					break;
+				}
+
+			} else if (category == 3) {
+				switch (place) {
+				case 1:
+					price = teamBuildingAdventure.get("Unawatuna adventure camp");
+					break;
+				case 2:
+					price = teamBuildingAdventure.get("Thangalle adventure camp");
+					break;
+				case 3:
+					price = teamBuildingAdventure.get("Kithulgala adventure camp");
+					break;
+				}
+
+			} else if (category == 4) {
+				switch (place) {
+				case 1:
+					price = mountainBiking.get("MTB.LK for Travelers at Battaramulla");
+					break;
+				case 2:
+					price = mountainBiking.get("Samson Bikes for Travelers at Nuwara Eliya");
+					break;
+				case 3:
+					price = mountainBiking.get("Nuwara Eliya Mountain Bike Station at Nuwara Eliya");
+					break;
+				case 4:
+					price = mountainBiking.get("Mountain and Road bike tour & Bikes and Apartment rent at Kaluthara");
+					break;
+				}
+			}
+			return price;
+		}
+
+		@Override
+		public String getPlace(int category, int place) {
+			// TODO Auto-generated method stub
+			String name = "";
+			if (category == 1) {
+				switch (place) {
+				case 1:
+					name = "Kayaking Adventur at Piliyandala";
+					break;
+				case 2:
+					name = "Kayak Journey at Tangalle";
+					break;
+				case 3:
+					name = "Lagoon Canoeing at Galle";
+					break;
+				case 4:
+					name = "Lagoon Canoeing Tour at Unuwatuna";
+					break;
+				}
+			} else if (category == 2) {
+				switch (place) {
+				case 1:
+					name = "Ella Archery for Travelers";
+					break;
+				case 2:
+					name = "Che Adventure Park";
+					break;
+				case 3:
+					name = "Archery Tag LK";
+					break;
+				case 4:
+					name = "Maitland archery for Travelers";
+					break;
+				}
+
+			} else if (category == 3) {
+				switch (place) {
+				case 1:
+					name = "Unawatuna adventure camp";
+					break;
+				case 2:
+					name = "Thangalle adventure camp";
+					break;
+				case 3:
+					name = "Kithulgala adventure camp";
+					break;
+				}
+
+			} else if (category == 4) {
+				switch (place) {
+				case 1:
+					name = "MTB.LK for Travelers at Battaramulla";
+					break;
+				case 2:
+					name = "Samson Bikes for Travelers at Nuwara Eliya";
+					break;
+				case 3:
+					name = "Nuwara Eliya Mountain Bike Station at Nuwara Eliya";
+					break;
+				case 4:
+					name = "Mountain and Road bike tour & Bikes and Apartment rent at Kaluthara";
+					break;
+				}
+			}
+			return name;
+		}
+	}
+

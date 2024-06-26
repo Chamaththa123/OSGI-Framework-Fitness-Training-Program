@@ -1,0 +1,301 @@
+//package sub_bronze;
+//
+//import java.util.ArrayList;
+//import java.util.InputMismatchException;
+//import java.util.Scanner;
+//
+//import org.osgi.framework.BundleActivator;
+//import org.osgi.framework.BundleContext;
+//import org.osgi.framework.ServiceReference;
+//
+//import pub_adventure.AdventurPackagesInterface;
+//
+//public class BronzeActivator implements BundleActivator {
+//
+//	ServiceReference serviceRefAdventure;
+//	
+//	Scanner scan = new Scanner(System.in);
+//
+//	public void start(BundleContext bundleContext) throws Exception {
+//
+//		int	publisherType,
+//			selected,
+//			type,  
+//			exType;
+//		
+//		double tot = 0;
+//		double dis = 0;
+//		double exPrice = 0;
+//		
+//		float disPercentage = (float) 0.05;
+//		
+//		ArrayList<String> selecPlaces = new ArrayList<String>();
+//
+//		serviceRefAdventure = bundleContext.getServiceReference(AdventurPackagesInterface.class.getName());
+//		AdventurPackagesInterface adventurePub = (AdventurPackagesInterface) bundleContext.getService(serviceRefAdventure);
+//
+//		System.out.println("\nAdventure Packages consumer has started.");
+//		System.out.println("If you want to continue with adventure packages press 1.");
+//		System.out.println("Do you want any other package? press 0.");
+//
+//		try {
+//			System.out.print("Select a Type: ");
+//			publisherType = scan.nextInt();
+//			System.out.println("============================================================================");
+//
+//			if (publisherType == 1) {
+//
+//				System.out.println("\n================== Category Of Adventure ===================");
+//
+//				System.out.println("1. Canoeing");
+//				System.out.println("2. Archery");
+//				System.out.println("3. TeamBuilding Adventure");
+//				System.out.println("4. Mountain Biking\n");
+//
+//				System.out.println("=============================================================================");
+//				System.out.println();
+//
+//				System.out.println("To exit and get the total, press O.\n");
+//				System.out.print("\nSelect Your Categories: ");
+//				
+//				type = scan.nextInt();
+//				
+//				while (type != 0) {
+//					System.out.print("\nDo You Want Any Safety Items For The Adventure? (Y/N): ");
+//					char isEx = scan.next().charAt(0);
+//
+//					if (isEx == 'Y') {
+//						System.out.println(
+//								"\n============================== Extra Stuff =============================== ");
+//						System.out.println("1. Special Travel Backpack \tLKR 2000.00");
+//						System.out.println("2. Travel Tent            \tLKR 4500.00");
+//						System.out.println("3. Extra Biking Equipment \tLKR 2700.00");
+//						System.out.println("4. Map Device (Digital) \tLKR 2500.00\n");
+//
+//						System.out.println("======================================================================");
+//
+//						System.out.print("\nSelect Your Extra Stuff: ");
+//						exType = scan.nextInt();
+//						System.out.println("======================================================================");
+//
+//						switch (exType) {
+//							case 1:
+//								exPrice = 2000;
+//								break;
+//							case 2:
+//								exPrice = 4500;
+//								break;
+//							case 3:
+//								exPrice = 2700;
+//								break;
+//							case 4:
+//								exPrice = 2500;
+//								break;
+//						}
+//						tot += exPrice;
+//					}
+//
+//					System.out.println("\nThe Followings Are The Adventure Places You Can Visit :");
+//					
+//					adventurePub.displayAdventuresByCategory(type);
+//					
+//					System.out.println("\nTo quit the Current Category, type -1. .\n");
+//					System.out.print("\nSelect Your Place: ");
+//					
+//					selected = scan.nextInt();
+//					
+//					while (selected != -1) {
+//						tot += adventurePub.getAdventuresPrice(type, selected);
+//						selecPlaces.add(adventurePub.getAdventureCategory(type, selected));
+//						System.out.print("Select Your Place: ");
+//						selected = scan.nextInt();
+//					}
+//					
+//					System.out.println();
+//					System.out.print("\nPress 0 to get the balance & run next package publisher!");
+//					System.out.print("\nSelect Your Next Category: ");
+//					
+//					type = scan.nextInt();
+//				}
+//				dis = tot * disPercentage;
+//
+//				System.out.println("\n============================== Summary Report =============================");
+//				System.out.println("\nSelected Places : " + selecPlaces);
+//				System.out.println("\nTotal : " + tot);
+//				System.out.printf("You Have Just Recieved A Discount LKR %.2f For Your Subscription!\n", dis);
+//				System.out.printf("Total : LKR %.2f \n", (tot - dis));
+//				System.out.println("\n===========================================================================");
+//				
+//			}else if(publisherType == 0) {
+//				this.stop(bundleContext);
+//			}	
+//			
+//		} catch (InputMismatchException e) {
+//			System.out.println("The value entered should be an integer.!" + e.getMessage());
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//	}
+//
+//	public void stop(BundleContext bundleContext) throws Exception {
+//		System.out.println("Adventure Subscriber Has Stopped.\n\n");
+//		bundleContext.ungetService(serviceRefAdventure);
+//	}
+//
+//}
+
+// Import required packages
+package sub_bronze;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import pub_adventure.AdventurPackagesInterface;
+
+public class BronzeActivator implements BundleActivator {
+
+	// Declare service reference variable
+	ServiceReference serviceRefAdventure;
+
+	// Declare scanner object for user input
+	Scanner scan = new Scanner(System.in);
+
+	// Start method for bundle activation
+	public void start(BundleContext bundleContext) throws Exception {
+
+		// Declare and initialize variables
+		int publisherType, selected, type, exType;
+		double totalPrice = 0, discount = 0, extraPrice = 0;
+		float discountPercentage = (float) 0.05;
+		ArrayList<String> selectedPlaces = new ArrayList<String>();
+
+		// Get service reference for Adventure Packages interface
+		serviceRefAdventure = bundleContext.getServiceReference(AdventurPackagesInterface.class.getName());
+		AdventurPackagesInterface adventurePub = (AdventurPackagesInterface) bundleContext.getService(serviceRefAdventure);
+
+		System.out.println("\n======================= Welcome to Adventure Packages Consumer! =======================\n");
+		System.out.println("Press 1 to continue with adventure packages.");
+		System.out.println("Press 0 to exit.");
+
+		try {
+			System.out.print("Enter your choice: ");
+			publisherType = scan.nextInt();
+			System.out.println("_____________________________________________________________________________\n");
+
+			if (publisherType == 1) {
+
+				System.out.println("\n------------------------- Categories Of Adventure ---------------------------");
+				System.out.println("1. Canoeing");
+				System.out.println("2. Archery");
+				System.out.println("3. Team Building Adventure");
+				System.out.println("4. Mountain Biking\n");
+				System.out.println("****************************");
+				System.out.println();
+
+				System.out.println("(To exit and get the total, press 0.)");
+				System.out.print("Enter the category of adventure you want to select: ");
+				type = scan.nextInt();
+
+				while (type != 0) {
+					
+					// Get user input for extra items selection
+					System.out.print("\nDo you want any safety items for the adventure? (Y/N): ");
+					char isExtra = scan.next().charAt(0);
+
+					// If user wants extra items
+					if (isExtra == 'Y' || isExtra == 'y') {
+						
+						// Display extra items and their prices
+						System.out.println("\n------------------------------ Extra Stuff ------------------------------");
+						System.out.println("1. Special Travel Backpack \t\tLKR 2000.00");
+						System.out.println("2. Travel Tent            \t\tLKR 4500.00");
+						System.out.println("3. Extra Biking Equipment \t\tLKR 2700.00");
+						System.out.println("4. Map Device (Digital)   \t\tLKR 2500.00\n");
+						System.out.println("****************************");
+
+						do {
+							System.out.print("\n(Enter -1 to exit)");
+							System.out.print("\nEnter the number of the extra item you want to select: ");
+							exType = scan.nextInt();
+							System.out.println();
+							System.out.println("_____________________________________________________________________________");
+	
+							// Calculate and add extra item price to total price
+							switch (exType) {
+								case 1:
+									extraPrice = 2000;
+									break;
+								case 2:
+									extraPrice = 4500;
+									break;
+								case 3:
+									extraPrice = 2700;
+									break;
+								case 4:
+									extraPrice = 2500;
+									break;
+							}
+							
+							totalPrice += extraPrice;
+							
+						} while (exType != -1);
+					}
+
+					System.out.println("\nThe following are the adventure places you can visit:");
+					// Display adventure packages under user's selected category
+					adventurePub.displayAdventuresByCategory(type);
+
+					System.out.println("\nTo quit the current category, enter -1.");
+					System.out.print("Enter the adventure place you want to select: ");
+					selected = scan.nextInt();
+
+					// Loop through selected adventure places
+					while (selected != -1) {
+						// Calculate and add adventure place price to total price
+						totalPrice += adventurePub.getAdventuresPrice(type, selected);
+						selectedPlaces.add(adventurePub.getAdventureCategory(type, selected));
+						System.out.print("Enter the adventure place you want to select: ");
+						selected = scan.nextInt();
+					}
+
+					System.out.println();
+					System.out.print("Press 0 to get the balance and select next adventure category.\n");
+					System.out.print("Enter the category of adventure you want to purchase next: ");
+					type = scan.nextInt();
+				}
+				
+				discount = totalPrice * discountPercentage;
+				double finalPrice = totalPrice - discount;
+
+				// Display summary report
+				System.out.println("\n============================== Summary Report =============================");
+				System.out.println("\nSelected Places: " + selectedPlaces);
+				System.out.printf("\nTotal Price: LKR %.2f", totalPrice);
+				System.out.printf("\nYou have received a discount of LKR %.2f for your subscription!", discount);
+				System.out.printf("\nFinal Price: LKR %.2f \n", finalPrice);
+				System.out.println("\n===========================================================================");
+				
+			} else if(publisherType == 0) {
+				// If user wants to exit, stop bundle activation
+				this.stop(bundleContext);
+			}	
+			
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input! Please enter an integer.");
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	// Stop method for bundle deactivation
+	public void stop(BundleContext bundleContext) throws Exception {
+		System.out.println("Adventure Subscriber has stopped.\n\n");
+		bundleContext.ungetService(serviceRefAdventure);
+	}
+
+}

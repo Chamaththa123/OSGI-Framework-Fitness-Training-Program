@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: hill-climbing
+Bundle-SymbolicName: HillClimbingPackagesConsumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: hillclimbing.subscriber.HillClimbingActivator
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: sub.gold
+Import-Package: org.osgi.framework;version="1.10.0",
+ pub_hillclimb
+Bundle-ActivationPolicy: lazy

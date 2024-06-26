@@ -1,0 +1,10 @@
+package pub_adventure;
+
+public interface AdventurePublisher {
+
+	public void displayAdventuresByCategory(int num);
+
+	public double getAdventuresPrice(int category, int place);
+
+	public String getAdventureCategory(int category, int place);
+}

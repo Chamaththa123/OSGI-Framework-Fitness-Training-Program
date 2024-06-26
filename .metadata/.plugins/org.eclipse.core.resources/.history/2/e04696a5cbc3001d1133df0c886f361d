@@ -1,0 +1,147 @@
+package sub_platinum;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import pub_safari.SafariPublisher;
+
+
+public class PlatinumActivator implements BundleActivator {
+
+	ServiceReference serviceRefSafari;
+	
+	Scanner scan = new Scanner(System.in);
+
+	public void start(BundleContext bundleContext) throws Exception {
+
+		int	publisherType,
+			selected,
+			type,  
+			exType;
+		
+		double tot = 0;
+		double dis = 0;
+		double exPrice = 0;
+		
+		float disPercentage = (float) 0.05;
+		
+		ArrayList<String> selecPlaces = new ArrayList<String>();
+		
+		serviceRefSafari= bundleContext.getServiceReference(SafariPublisher.class.getName());
+		SafariPublisher safariPub = (SafariPublisher) bundleContext.getService(serviceRefSafari);
+
+		System.out.println("\nSafari Packages consumer has started.");
+		System.out.println("If you want to continue with Safari packages press 1.");
+		System.out.println("Do you want any other package? press 0.");
+
+		try {
+			System.out.print("Select a Type: ");
+			publisherType = scan.nextInt();
+			System.out.println("============================================================================");
+			
+			if (publisherType == 1) { 
+				System.out.println("\n================== Safari Locations ===================");
+
+				System.out.println("1. YalaSafaris");
+				System.out.println("2. WilpattuSafaris");
+				System.out.println("3. UdawalaweSafaris");
+				System.out.println("4. MinneriyaSafaris\n");
+			
+
+				System.out.println("=============================================================================");
+				System.out.println();
+
+				System.out.println("To exit and get the total, press O.\n");
+				System.out.print("\nSelect Your Safari Locations: ");
+				
+				type = scan.nextInt();
+				
+				while (type != 0) {
+					System.out.print("\nDo You Need Any Safari Equipments? (Y/N): ");
+					char isExtra = scan.next().charAt(0);
+
+					if (isExtra == 'Y') {
+						System.out.println(
+								"\n============================== Extra Equipments =============================== ");
+						System.out.println("1. Safari Wearables (sunglasses, hat, sunblock \tLKR 1500.00");
+						System.out.println("2. First aid kit                               \tLKR 1000.00");
+						System.out.println("3. Hand luggage (can keep it forever)          \tLKR 1700.00");
+						System.out.println("4. Food and Soft Drinks                        \tLKR 500.00\n");
+
+						System.out.println("======================================================================");
+
+						System.out.print("\nSelect extra: ");
+						
+						exType = scan.nextInt();
+
+						switch (exType) {
+							case 1:
+								exPrice = 1500;
+								break;
+							case 2:
+								exPrice = 1000;
+								break;
+							case 3:
+								exPrice = 1700;
+								break;
+							case 4:
+								exPrice = 500;
+								break;
+						}
+						
+						tot += exPrice;
+					}
+
+					safariPub.displaySafPlaces(type);
+					
+					System.out.println("\nTo quit the Current Category, type -1. .\n");
+					System.out.print("\nSelect Your Places: ");
+					
+					selected = scan.nextInt();
+					
+					while (selected != -1) {
+						tot += safariPub.getPrice(type, selected);
+						selecPlaces.add(safariPub.getPlace(type, selected));
+						System.out.print("Select Your Places: ");
+						selected = scan.nextInt();
+					}
+					
+					System.out.println();
+					System.out.print("\nPress 0 to get the balance & run next package publisher!");
+					System.out.print("\nSelect Your Next Category: ");
+					
+					type = scan.nextInt();
+				}
+				
+				dis = tot * disPercentage;
+				
+				System.out.println("\n============================== Summary Report =============================");
+				System.out.println("Your Selected Safari Places: " + selecPlaces);
+				System.out.println("\nTotal : " + tot);
+				System.out.printf("You Have Just Recieved A Discount LKR %.2f For Your Subscription!\n", dis);
+				System.out.printf("Total : LKR %.2f \n", (tot - dis));
+				System.out.println("\n===========================================================================");
+				
+				this.stop(bundleContext);
+				
+			} else if (publisherType == 0) {
+				this.stop(bundleContext);
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("The value entered should be an integer.!" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void stop(BundleContext bundleContext) throws Exception {
+		System.out.println("Safari Subscriber Has Stopped.");
+		bundleContext.ungetService(serviceRefSafari);
+	}
+
+}

@@ -1,0 +1,151 @@
+package sub_gold;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import pub_hillclimb.HillClimbPublisher;
+
+
+public class GoldActivator implements BundleActivator {
+
+	ServiceReference serviceRefHillClimbing;
+	
+	Scanner scan = new Scanner(System.in);
+
+	public void start(BundleContext bundleContext) throws Exception {
+
+		int	nights = 0, 
+			publisherType,
+			selected,
+			tentType, 
+			type;
+			
+		String tent = null;
+		
+		double tot = 0;
+		double dis = 0;
+		double tentPrice = 0;
+		
+		float disPercentage = (float) 0.05;
+		
+		ArrayList<String> selecPlaces = new ArrayList<String>();
+
+		serviceRefHillClimbing= bundleContext.getServiceReference(HillClimbPublisher.class.getName());
+		HillClimbPublisher hillClimbPub = (HillClimbPublisher) bundleContext.getService(serviceRefHillClimbing);
+
+		System.out.println("\nHill Climbing Packages consumer has started.");
+		System.out.println("If you want to continue with Hill Climbing packages press 1.");
+		System.out.println("Do you want any other package? press 0.");
+
+		try {
+			System.out.print("Select a Type: ");
+			publisherType = scan.nextInt();
+			System.out.println("============================================================================");
+			
+			if (publisherType == 1) {
+				System.out.println("================================ Categories ================================\n");
+				System.out.println("Categories: ");
+				System.out.println("1. Day Mountaineering");
+				System.out.println("2. Overnight Mountaineering");
+				System.out.println("3. Waterfall Climbing");
+				System.out.println("4. Alpine Climbing\n");
+
+				System.out.println("To exit and get the total, press O.**\n");
+				System.out.print("\nSelect Your Category: ");
+				
+				type = scan.nextInt();
+				
+				System.out.println("===========================================================================");
+				
+				while (type != 0) {
+
+					if (type == 2) {
+						System.out.print("\nDo You Require a Tent?(Y/N): ");
+						char isCanopy = scan.next().charAt(0);
+						if (isCanopy == 'Y') {
+							System.out.println(
+									"\n================================ Tent Types ===============================\n");
+							System.out.println("Tent Types: ");
+							System.out.println("1. For one Person \t \t LKR 1800.00");
+							System.out.println("2. For two Person \t \t LKR 2000.00");
+							System.out.println("3. For three person \t LKR 2800.00");
+							System.out.println();
+
+							System.out.print("\nSelect Your Tent Type: ");
+							tentType = scan.nextInt();
+
+							System.out.print("\nEnter Number of nights required: ");
+							nights = scan.nextInt();
+							System.out.println(
+									"===========================================================================");
+
+							switch (tentType) {
+								case 1:
+									tent = "For one person";
+									tentPrice = 1000;
+									break;
+								case 2:
+									tent = "For two Person";
+									tentPrice = 1800;
+									break;
+								case 3:
+									tent = "For three Person";
+									tentPrice = 2500;
+									break;
+								}
+
+							tot += tentPrice * nights;
+						}
+
+					}
+
+					System.out.println("================================== Places =================================\n");
+					hillClimbPub.displayHillClimbPlaces(type);
+					System.out.println("\nType -1 to exit from the Current Category.\n");
+					System.out.print("\nSelect Your Hiking Places: ");
+					selected = scan.nextInt();
+					while (selected != -1) {
+						tot += hillClimbPub.getPrice(type, selected);
+						selecPlaces.add(hillClimbPub.getPlace(type, selected));
+						System.out.print("Select Your Hiking Places: ");
+						selected = scan.nextInt();
+					}
+					System.out.println();
+					System.out.print("\nPress 0 to get the balance & run next package publisher!");
+					System.out.print("\n Select Your Next Category: ");
+					type = scan.nextInt();
+				}
+
+				dis = tot * disPercentage;
+
+				System.out.println("\n============================ Summary Report ==============================");
+				System.out.println("Your Selected Hill Climb Locations: " + selecPlaces);
+				System.out.println("\nTotal : " + tot);
+				System.out.println(" Your Selected Tent: " + tent + "\t" + "Number of Nights: " + nights);
+				System.out.printf("You Have Just Recieved A Discount of LKR %.2f For Your Subscription!\n", dis);
+				System.out.printf("Total : LKR %.2f \n", (tot - dis));
+				System.out.println("==========================================================================\n");
+
+			}else if(publisherType == 0) {
+				this.stop(bundleContext);
+			}
+				
+		} catch (InputMismatchException e) {
+			System.out.println("The value entered should be an integer.!" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void stop(BundleContext bundleContext) throws Exception {
+		System.out.println("Hill Climbing Subscriber Has Stopped.\n\n");
+		bundleContext.ungetService(serviceRefHillClimbing);
+		
+	}
+
+}

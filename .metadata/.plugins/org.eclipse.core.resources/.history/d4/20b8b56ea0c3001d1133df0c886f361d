@@ -1,0 +1,215 @@
+package pub_adventure;
+
+import java.util.HashMap;
+
+import pub_adventure.AdventurePublisher;
+
+public class AdventurePubImpl implements AdventurePublisher {
+	// Creating HashMaps to store different adventure packages
+		HashMap<String, Double> waterSports = new HashMap<String, Double>();
+		HashMap<String, Double> targetSports = new HashMap<String, Double>();
+		HashMap<String, Double> teamBuilding = new HashMap<String, Double>();
+		HashMap<String, Double> cycling = new HashMap<String, Double>();
+
+		// Constructor to initialize the HashMaps with adventure packages
+		public AdventurePubImpl() {
+		    waterSports.put("Surfing Adventure in Arugam Bay, Sri Lanka", 10000.00);
+		    waterSports.put("Scuba Diving at Hikkaduwa Coral Reef, Sri Lanka", 12000.00);
+		    waterSports.put("White Water Rafting at Kelani River, Sri Lanka", 6000.00);
+		    waterSports.put("Kayaking Expedition in Mahaweli River, Sri Lanka", 7000.00);
+
+		    targetSports.put("Air Rifle Shooting in Galle, Sri Lanka", 5000.00);
+		    targetSports.put("Paintball Battle at Pidurangala, Sri Lanka", 8000.00);
+		    targetSports.put("Skeet Shooting in Sigiriya, Sri Lanka", 6000.00);
+		    targetSports.put("Archery for Travelers in Ella, Sri Lanka", 4000.00);
+
+		    teamBuilding.put("Adventure Camp at Yala National Park, Sri Lanka", 9000.00);
+		    teamBuilding.put("Survival Camp at Wilpattu National Park, Sri Lanka", 10000.00);
+		    teamBuilding.put("Beach Olympics at Mirissa, Sri Lanka", 8000.00);
+
+		    cycling.put("Mountain Biking Tour in Knuckles Mountain Range, Sri Lanka", 10000.00);
+		    cycling.put("Road Biking Tour in Gampola, Sri Lanka", 9000.00);
+		    cycling.put("Cycling Expedition in Horton Plains National Park, Sri Lanka", 12000.00);
+		    cycling.put("Bike Tour & Rental in Anuradhapura, Sri Lanka", 7000.00);
+		}
+
+		// Display adventure places based on the category number
+		@Override
+		public void displayAdventurePlaces(int num) {
+			int count;
+			switch (num) {
+			case 1:
+				count = 1;
+				for (String key : waterSports.keySet()) {
+					String key1 = key.toString();
+					String value1 = waterSports.get(key).toString();
+					System.out.println(count + ". " + key1 + " :- LKR " + value1);
+					count++;
+				};
+				break;
+			case 2:
+				count = 1;
+				for (String key : targetSports.keySet()) {
+					String key2 = key.toString();
+					String value2 = targetSports.get(key).toString();
+					System.out.println(count + ". " + key2 + " :- LKR " + value2);
+					count++;
+				};
+				break;
+
+			case 3:
+				count = 1;
+				for (String key : teamBuilding.keySet()) {
+					String key3 = key.toString();
+					String value3 = teamBuilding.get(key).toString();
+					System.out.println(count + ". " + key3 + " :- LKR " + value3);
+					count++;
+				};
+				break;
+
+			case 4:
+				count = 1;
+				for (String key : cycling.keySet()) {
+					String key4 = key.toString();
+					String value4 = cycling.get(key).toString();
+					System.out.println(count + ". " + key4 + " :- LKR " + value4);
+					count++;
+				};
+				break;
+			}
+		}
+
+		// Get price of the adventure package based on category and place number
+		@Override
+		public double getPrice(int category, int place) {
+			double price = 0;
+			if (category == 1) {
+				switch (place) {
+				case 1:
+					price = waterSports.get("Surfing Adventure in Arugam Bay, Sri Lanka");
+					break;
+				case 2:
+					price = waterSports.get("Scuba Diving at Hikkaduwa Coral Reef, Sri Lanka");
+					break;
+				case 3:
+					price = waterSports.get("White Water Rafting at Kelani River, Sri Lanka");
+					break;
+				case 4:
+					price = waterSports.get("Kayaking Expedition in Mahaweli River, Sri Lanka");
+					break;
+				}
+			} else if (category == 2) {
+				switch (place) {
+				case 1:
+					price = targetSports.get("Air Rifle Shooting in Galle, Sri Lanka");
+					break;
+				case 2:
+					price = targetSports.get("Paintball Battle at Pidurangala, Sri Lanka");
+					break;
+				case 3:
+					price = targetSports.get("Skeet Shooting in Sigiriya, Sri Lanka");
+					break;
+				case 4:
+					price = targetSports.get("Archery for Travelers in Ella, Sri Lanka");
+					break;
+				}
+
+			} else if (category == 3) {
+				switch (place) {
+				case 1:
+					price = teamBuilding.get("Adventure Camp at Yala National Park, Sri Lanka");
+					break;
+				case 2:
+					price = teamBuilding.get("Survival Camp at Wilpattu National Park, Sri Lanka");
+					break;
+				case 3:
+					price = teamBuilding.get("Beach Olympics at Mirissa, Sri Lanka");
+					break;
+				}
+
+			} else if (category == 4) {
+				switch (place) {
+				case 1:
+					price = cycling.get("Mountain Biking Tour in Knuckles Mountain Range, Sri Lanka");
+					break;
+				case 2:
+					price = cycling.get("Road Biking Tour in Gampola, Sri Lanka");
+					break;
+				case 3:
+					price = cycling.get("Cycling Expedition in Horton Plains National Park, Sri Lanka");
+					break;
+				case 4:
+					price = cycling.get("Bike Tour & Rental in Anuradhapura, Sri Lanka");
+					break;
+				}
+			}
+			return price;
+		}
+
+		// Get name of the adventure package based on category and place number
+		@Override
+		public String getPlace(int category, int place) {
+			String name = "";
+			if (category == 1) {
+				switch (place) {
+				case 1:
+					name = "Surfing Adventure in Arugam Bay, Sri Lanka";
+					break;
+				case 2:
+					name = "Scuba Diving at Hikkaduwa Coral Reef, Sri Lanka";
+					break;
+				case 3:
+					name = "White Water Rafting at Kelani River, Sri Lanka";
+					break;
+				case 4:
+					name = "Kayaking Expedition in Mahaweli River, Sri Lanka";
+					break;
+				}
+			} else if (category == 2) {
+				switch (place) {
+				case 1:
+					name = "Air Rifle Shooting in Galle, Sri Lanka";
+					break;
+				case 2:
+					name = "Paintball Battle at Pidurangala, Sri Lanka";
+					break;
+				case 3:
+					name = "Skeet Shooting in Sigiriya, Sri Lanka";
+					break;
+				case 4:
+					name = "Archery for Travelers in Ella, Sri Lanka";
+					break;
+				}
+
+			} else if (category == 3) {
+				switch (place) {
+				case 1:
+					name = "Adventure Camp at Yala National Park, Sri Lanka";
+					break;
+				case 2:
+					name = "Survival Camp at Wilpattu National Park, Sri Lanka";
+					break;
+				case 3:
+					name = "Beach Olympics at Mirissa, Sri Lanka";
+					break;
+				}
+
+			} else if (category == 4) {
+				switch (place) {
+				case 1:
+					name = "Mountain Biking Tour in Knuckles Mountain Range, Sri Lanka";
+					break;
+				case 2:
+					name = "Road Biking Tour in Gampola, Sri Lanka";
+					break;
+				case 3:
+					name = "Cycling Expedition in Horton Plains National Park, Sri Lanka";
+					break;
+				case 4:
+					name = "Bike Tour & Rental in Anuradhapura, Sri Lanka";
+					break;
+				}
+			}
+			return name;
+		}
+	}

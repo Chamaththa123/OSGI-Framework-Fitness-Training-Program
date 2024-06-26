@@ -1,0 +1,223 @@
+package pub_safari;
+
+import java.util.HashMap;
+
+import pub_safari.SafariPublisherInterface;
+
+public class SafariPublisherImp implements SafariPublisherInterface {
+	
+	// HashMaps use to store the Safari types
+		HashMap<String, Double> yalaSafaris = new HashMap<String, Double>();
+		HashMap<String, Double> wilpattuSafaris = new HashMap<String, Double>();
+		HashMap<String, Double> udawalaweSafaris = new HashMap<String, Double>();
+		HashMap<String, Double> minneriyaSafaris = new HashMap<String, Double>();
+
+		// Locations can be saved with price based on their location by the constructor.
+			
+		public SafariPublisherImp() {
+			yalaSafaris.put("Yala La safari Tours", 7000.00);
+			yalaSafaris.put("Elephant Lake Yala", 8500.00);
+			yalaSafaris.put("Jetwing Safari", 6000.00);
+			yalaSafaris.put("Yala Day Safari From Mirissa", 10000.00);
+
+			wilpattuSafaris.put("Mahoora Tented Safari", 8000.00);
+			wilpattuSafaris.put("Leopard Trails", 6000.00);
+			wilpattuSafaris.put("Afternoon Game Drive", 7000.00);
+			wilpattuSafaris.put("Stelarans Safari Trails", 95000.00);
+
+			udawalaweSafaris.put("Master Campers Safari", 8000.00);
+			udawalaweSafaris.put("Sri Lanka Jeep Safari", 7000.00);
+			udawalaweSafaris.put("Lahiru Safari Guide Tours", 5000.00);
+
+			minneriyaSafaris.put("Mathisha Jeep Safari Minneriya", 7000.00);
+			minneriyaSafaris.put("Safari at The Leopard Nest Campsite", 4000.00);
+			minneriyaSafaris.put("Ceylon wild trails safari", 3000.00);
+			minneriyaSafaris.put("Lankan wild life jeep safari Minneriya", 3000.00);
+		}
+
+		@Override
+		public void displaySafPlaces(int num) {
+			// TODO Auto-generated method stub
+			int ct;
+			switch (num) {
+			case 1:
+				ct = 1;
+				for (String nm01 : yalaSafaris.keySet()) {
+					String key1 = nm01.toString();
+					String value1 = yalaSafaris.get(nm01).toString();
+					System.out.println(ct + ". " + key1 + " :- LKR " + value1);
+					ct++;
+				}
+				;
+				break;
+			case 2:
+				ct = 1;
+				for (String nm02 : wilpattuSafaris.keySet()) {
+					String key2 = nm02.toString();
+					String value2 = wilpattuSafaris.get(nm02).toString();
+					System.out.println(ct + ". " + key2 + " :- LKR " + value2);
+					ct++;
+				}
+				;
+				break;
+
+			case 3:
+				ct = 1;
+				for (String nm03 : udawalaweSafaris.keySet()) {
+					String key3 = nm03.toString();
+					String value3 = udawalaweSafaris.get(nm03).toString();
+					System.out.println(ct + ". " + key3 + " :- LKR " + value3);
+					ct++;
+				}
+				;
+				break;
+
+			case 4:
+				ct = 1;
+				for (String nm04 : minneriyaSafaris.keySet()) {
+					String key4 = nm04.toString();
+					String value4 = minneriyaSafaris.get(nm04).toString();
+					System.out.println(ct + ". " + key4 + " :- LKR " + value4);
+					ct++;
+				}
+				;
+				break;
+			}
+
+		}
+		
+
+		@Override
+		public double getPrice(int category, int place) {
+			// TODO Auto-generated method stub
+			double price = 0;
+			if (category == 1) {
+				switch (place) {
+				case 1:
+					price = yalaSafaris.get("Yala La safari Tours");
+					break;
+				case 2:
+					price = yalaSafaris.get("Elephant Lake Yala");
+					break;
+				case 3:
+					price = yalaSafaris.get("Jetwing Safari");
+					break;
+				case 4:
+					price = yalaSafaris.get("Yala Day Safari From Mirissa");
+					break;
+				}
+			} else if (category == 2) {
+				switch (place) {
+				case 1:
+					price = wilpattuSafaris.get("Mahoora Tented Safari");
+					break;
+				case 2:
+					price = wilpattuSafaris.get("Leopard Trails");
+					break;
+				case 3:
+					price = wilpattuSafaris.get("Afternoon Game Drive");
+					break;
+				case 4:
+					price = wilpattuSafaris.get("Stelarans Safari Trails");
+					break;
+				}
+
+			} else if (category == 3) {
+				switch (place) {
+				case 1:
+					price = udawalaweSafaris.get("Master Campers Safari");
+					break;
+				case 2:
+					price = udawalaweSafaris.get("Sri Lanka Jeep Safari");
+					break;
+				case 3:
+					price = udawalaweSafaris.get("Lahiru Safari Guide Tours");
+					break;
+				}
+
+			} else if (category == 4) {
+				switch (place) {
+				case 1:
+					price = minneriyaSafaris.get("Mathisha Jeep Safari Minneriya");
+					break;
+				case 2:
+					price = minneriyaSafaris.get("Safari at The Leopard Nest Campsite");
+					break;
+				case 3:
+					price = minneriyaSafaris.get("Ceylon wild trails safari");
+					break;
+				case 4:
+					price = minneriyaSafaris.get("Lankan wild life jeep safari Minneriya");
+					break;
+				}
+			}
+			return price;
+		}
+
+		@Override
+		public String getPlace(int category, int place) {
+			// TODO Auto-generated method stub
+			String name = "";
+			if (category == 1) {
+				switch (place) {
+				case 1:
+					name = "Yala La safari Tours";
+					break;
+				case 2:
+					name = "Elephant Lake Yala";
+					break;
+				case 3:
+					name = "Jetwing Safari";
+					break;
+				case 4:
+					name = "Yala Day Safari From Mirissa";
+					break;
+				}
+			} else if (category == 2) {
+				switch (place) {
+				case 1:
+					name = "Mahoora Tented Safari";
+					break;
+				case 2:
+					name = "Leopard Trails";
+					break;
+				case 3:
+					name = "Afternoon Game Drive";
+					break;
+				case 4:
+					name = "Stelarans Safari Trails";
+					break;
+				}
+
+			} else if (category == 3) {
+				switch (place) {
+				case 1:
+					name = "Master Campers Safari";
+					break;
+				case 2:
+					name = "Sri Lanka Jeep Safari";
+					break;
+				case 3:
+					name = "Lahiru Safari Guide Tours";
+					break;
+				}
+
+			} else if (category == 4) {
+				switch (place) {
+				case 1:
+					name = "Mathisha Jeep Safari Minneriya";
+					break;
+				case 2:
+					name = "Safari at The Leopard Nest Campsite";
+					break;
+				case 3:
+					name = "Ceylon wild trails safari";
+					break;
+				case 4:
+					name = "Lankan wild life jeep safari Minneriya";
+					break;
+				}
+			}
+			return name;
+		}
+	}

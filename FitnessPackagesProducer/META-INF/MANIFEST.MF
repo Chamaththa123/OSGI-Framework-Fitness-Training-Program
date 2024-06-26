@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fitness-publisher
+Bundle-SymbolicName: FitnessPackagesProducer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: fitness.publisher.FitnessPackagesActivator
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: fitness.publisher
+Import-Package: org.osgi.framework;version="1.10.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: fitness.publisher
